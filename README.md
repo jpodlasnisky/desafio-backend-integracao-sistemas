@@ -19,7 +19,7 @@
   
 | Descriçao | Tecnologias |
 |:---------:|:-----------:|
-|Linguagem e framework|![python](https://img.shields.io/badge/python-3.6-blue?color=blue&label=python&logo=python) ![flask](https://img.shields.io/badge/flask-v1.1.2-blue?label=flask&logo=flask) ![wheel](https://img.shields.io/badge/wheel-yes-brightgreen)|
+|Linguagem e framework|![python](https://img.shields.io/badge/python-3.8-blue?color=blue&label=python&logo=python) ![flask](https://img.shields.io/badge/flask-v1.1.2-blue?label=flask&logo=flask) ![wheel](https://img.shields.io/badge/wheel-yes-brightgreen)|
 |Bancos de Dados|![mysql](https://img.shields.io/badge/mysql-8.0-blue?label=MySQL&logo=mysql) ![postgres](https://img.shields.io/badge/postgresql-10.0-blue?label=PostgreSQL&logo=postgresql)|
 |IDE|![pycharm](https://img.shields.io/badge/pycharm-2020.2-blue?label=PyCharm&logo=pycharm)|
             
@@ -137,4 +137,108 @@ Content-Length: 234
     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InZhcmVqYW8iLCJleHAiOjE1OTk4Njk2NTF9.xZ7CpqwA26xSEB4Tiw7MDNpX9V-1OoqDao06h4rxRXk"
 }
 ```
-http://127.0.0.1:5000/auth
+
+### LoadJSON
+**Você encaminha:**  O token no Header e um JSON no body da requisição.
+**Você recebe:** Um `JWT-Token` que permitirá realizar outras ações.
+
+**URL**
+`/loadjson`
+**Método**
+`POST`
+**Request:**
+```http
+POST /loadjson HTTP/1.1
+Host: 127.0.0.1:5000
+token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InZhcmVqYW8iLCJleHAiOjE1OTk4NzQ5OTJ9.XM8AxX7QrZWU8Hn84vu5oxoZpB3gWx8A6ULjFpkaaSk
+Content-Type: application/json
+
+{
+    "contacts": [
+        {
+            "name": "Marina Rodrigues",
+            "cellphone": "5541996941919"
+        },
+        {
+            "name": "Nicolas Rodrigues",
+            "cellphone": "5541954122723"
+        },
+        {
+            "name": "Davi Lucca Rocha",
+            "cellphone": "5541979210400"
+        }
+    ]
+}
+```
+**Successful Response:**
+```json
+HTTP/1.1 201 CREATED
+Server: Werkzeug/1.0.1 Python/3.8.3
+Content-Type: application/json
+Content-Length: 4668
+{
+    "data": {
+        "contacts": [
+            {
+                "cellphone": "5541996941919",
+                "name": "Marina Rodrigues"
+            },
+            {
+                "cellphone": "5541954122723",
+                "name": "Nicolas Rodrigues"
+            },
+            {
+                "cellphone": "5541979210400",
+                "name": "Davi Lucca Rocha"
+            }
+        ]
+    },
+    "message": "json successfully handled"
+}
+```
+**BAD REQUEST**
+```html
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>400 Bad Request</title>
+<h1>Bad Request</h1>
+<p>Failed to decode JSON object: Expecting value: line 1 column 1 (char 0)</p>
+```
+
+### Get Users
+**Você encaminha:**  Uma requisição vazia na raiz
+**Você recebe:** Um JSON listando os usuários cadastrados.
+
+**URL**
+`/`
+**Método**
+`POST`
+**Request:**
+```http
+GET / HTTP/1.1
+Host: 127.0.0.1:5000
+```
+**Successful Response:**
+```json
+HTTP/1.1 200 OK
+Server: Werkzeug/1.0.1 Python/3.8.3
+Content-Type: application/json
+Content-Length: 4668
+{
+    "data": [
+        {
+            "created_on": "2020-09-10T21:27:03+00:00",
+            "id": 1,
+            "name": "Macapá",
+            "password": "pbkdf2:sha256:150000$dq4apChk$8679e392e39f71da4fb09b0a5f5a6aab07ecdb4a295f0aef8ccb6d0035413e78",
+            "username": "macapa"
+        },
+        {
+            "created_on": "2020-09-10T21:29:51+00:00",
+            "id": 2,
+            "name": "Varejão",
+            "password": "pbkdf2:sha256:150000$2MGLv8gU$8f8387ef4b7908640741492b3185b90b7eaca341add9e4b6b5775aaf66298aea",
+            "username": "varejao"
+        }
+    ],
+    "message": "successfully fetched"
+}```
