@@ -56,6 +56,16 @@
 
 *Não foi utilizado Docker na realização deste desafio. Considerando a incompatibilidade de se utilizar o Docker for Windows e o VMWare Workstation simultâneamente (pelo motivo de o Docker exigir a instalação do Hyper-V e o VMWare exigir a remoção do Hyper-V), optei por utilizar instâncias locais dos bancos de dados MySQL e PostgreSQL.*
 
+## Melhorias futuras
+* Reorganizar os endpoints atuais
+* Habilitar os seguintes endpoints
+	* POST /users/cadastra -> permite o cadastro de novos usuários
+	* GET /users/<id> -> permite consulta de usuários pelo ID
+	* DELETE /users/<id> -> permite a remoção de um usuário pelo ID
+	* PUT /users/<id> -> permite a alteração de dados de um usuário, com base no ID
+	* GET /contatos/clientes/<id> -> permite a listagem de contatos cadastrados relativos a um cliente
+* Desenvolver front-end para permitir um acesso via web
+
 ## Requirements
 
 Use o gerenciador de pacotes [pip](https://pip.pypa.io/en/stable/) para instalar as dependências.
@@ -117,8 +127,10 @@ Considerei também, que o JSON que carrega os dados à serem incluídos nos banc
 
 **URL**
 `/auth`
+
 **Método**
 `POST`
+
 **Request:**
 ```http
 POST /auth HTTP/1.1
@@ -144,8 +156,10 @@ Content-Length: 234
 
 **URL**
 `/loadjson`
+
 **Método**
 `POST`
+
 **Request:**
 ```http
 POST /loadjson HTTP/1.1
@@ -210,8 +224,10 @@ Content-Length: 4668
 
 **URL**
 `/`
+
 **Método**
 `POST`
+
 **Request:**
 ```http
 GET / HTTP/1.1
@@ -242,3 +258,5 @@ Content-Length: 4668
     ],
     "message": "successfully fetched"
 }```
+
+
